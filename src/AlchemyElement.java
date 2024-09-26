@@ -1,22 +1,20 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AlchemyElement {
     String name;
     private int complexity;
-    private List<AlchemyElement> possibleTransmutations;
+    private HashMap<Integer, AlchemyElement> possibleTransmutations;
 
     public AlchemyElement() {
     }
 
     public AlchemyElement(String name) {
         this.name = name;
-        possibleTransmutations = new ArrayList<>();
+        possibleTransmutations = new HashMap<>();
     }
 
     public void addTransmutation(AlchemyElement el) {
-        possibleTransmutations.add(el);
+        possibleTransmutations.put(possibleTransmutations.size(), el);
     }
 
     public int getComplexity() {
@@ -27,8 +25,8 @@ public class AlchemyElement {
         this.complexity = complexity;
     }
 
-    public List<AlchemyElement> getPossibleTransmutations() {
-        return possibleTransmutations;
+    public Collection<AlchemyElement> getPossibleTransmutations() {
+        return possibleTransmutations.values();
     }
 
     @Override
