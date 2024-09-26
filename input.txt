@@ -1,0 +1,8 @@
+5
+Aqua -> AquaVita
+AquaVita -> PhilosopherStone
+AquaVita -> Argentum
+Argentum -> Aurum
+AquaVita -> Aurum
+Aqua
+Aurum
