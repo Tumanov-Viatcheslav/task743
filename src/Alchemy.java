@@ -25,7 +25,7 @@ public class Alchemy {
     public static void main(String[] args) {
         InputData data = read();
         Recipe recipe = new Recipe(data.recipe);
-        int result = recipe.tryRecipe(data.material, data.product);
+        int result = recipe.tryRecipeBFS(data.material, data.product);
         System.out.println(result);
     }
 

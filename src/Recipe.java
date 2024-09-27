@@ -47,4 +47,68 @@ public class Recipe {
         int elProductComplexity = elements.get(product).getComplexity();
         return elProductComplexity == elements.size() ? -1 : elProductComplexity;
     }
+
+    public int tryRecipeBFS(String material, String product) {
+        AlchemyElement elCurrent;
+        if (!elements.containsKey(material) || !elements.containsKey(product))
+            return -1;
+
+        for (AlchemyElement el: elements.values())
+            el.setComplexity(elements.size());
+        Queue<AlchemyElement> queue = new LinkedList<>();
+        elCurrent = elements.get(material);
+        elCurrent.setComplexity(0);
+        elCurrent.setHasTransmutated();
+        for (AlchemyElement el: elCurrent.getPossibleTransmutations()) {
+            el.setComplexity(elCurrent.getComplexity() + 1);
+            el.setHasTransmutated();
+            queue.add(el);
+        }
+        while (!queue.isEmpty()) {
+            elCurrent = queue.poll();
+            for (AlchemyElement el: elCurrent.getPossibleTransmutations()) {
+                if (!el.hasTransmutated()) {
+                    el.setComplexity(elCurrent.getComplexity() + 1);
+                    el.setHasTransmutated();
+                    queue.add(el);
+                }
+            }
+        }
+        return elements.get(product).getComplexity();
+    }
+
+    public int tryRecipeDijkstra(String material, String product) {
+        AlchemyElement elCurrent;
+        if (!elements.containsKey(material) || !elements.containsKey(product))
+            return -1;
+
+        for (AlchemyElement el: elements.values())
+            el.setComplexity(elements.size());
+        Queue<AlchemyElement> queue = new PriorityQueue<>((el1, el2) -> {
+            if (el1.getComplexity() == el2.getComplexity())
+                return 0;
+            else return el1.getComplexity() < el2.getComplexity() ? -1 : 1;
+        });
+        elCurrent = elements.get(material);
+        elCurrent.setComplexity(0);
+        elCurrent.setHasTransmutated();
+        for (AlchemyElement el: elCurrent.getPossibleTransmutations()) {
+            el.setComplexity(elCurrent.getComplexity() + 1);
+            el.setHasTransmutated();
+            queue.add(el);
+        }
+        while (!queue.isEmpty()) {
+            elCurrent = queue.poll();
+            for (AlchemyElement el: elCurrent.getPossibleTransmutations()) {
+                if (!el.hasTransmutated()) {
+                    el.setComplexity(elCurrent.getComplexity() + 1);
+                    el.setHasTransmutated();
+                    queue.add(el);
+                }
+            }
+        }
+        return elements.get(product).getComplexity();
+    }
 }
+
+

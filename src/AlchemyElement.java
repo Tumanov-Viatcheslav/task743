@@ -3,6 +3,7 @@ import java.util.*;
 public class AlchemyElement {
     String name;
     private int complexity;
+    private boolean transmutated;
     private HashMap<Integer, AlchemyElement> possibleTransmutations;
 
     public AlchemyElement() {
@@ -27,6 +28,14 @@ public class AlchemyElement {
 
     public Collection<AlchemyElement> getPossibleTransmutations() {
         return possibleTransmutations.values();
+    }
+
+    public boolean hasTransmutated() {
+        return transmutated;
+    }
+
+    public void setHasTransmutated() {
+        this.transmutated = true;
     }
 
     @Override
